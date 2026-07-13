@@ -96,81 +96,62 @@ const NOTES = [
   { text: 'It sits on our table like it has always been there.', name: 'Aarav', city: 'Mumbai' },
   { text: 'Everything I bought feels considered. Nothing feels shouted.', name: 'Meera', city: 'Chennai' },
 ];
-
 function SmartImg({
   src,
   alt = '',
   className = '',
   priority = false,
 }) {
-  const [currentSrc, setCurrentSrc] = useState(src);
   const [loaded, setLoaded] = useState(false);
-  const [failed, setFailed] = useState(false);
+  const [imageSrc, setImageSrc] = useState(src);
 
   const fallbackSrc =
     'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=80';
 
   useEffect(() => {
-    setCurrentSrc(src);
+    setImageSrc(src);
     setLoaded(false);
-    setFailed(false);
   }, [src]);
 
-  const handleLoad = async (e) => {
-    try {
-      if (e.currentTarget.decode) {
-        await e.currentTarget.decode();
-      }
-    } catch {
-      // Image is still usable even if decode fails.
-    }
-
-    setLoaded(true);
-  };
-
-  const handleError = () => {
-    if (!failed) {
-      setFailed(true);
-      setLoaded(false);
-      setCurrentSrc(fallbackSrc);
-      return;
-    }
-
-    setLoaded(true);
-  };
-
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      <div
-        aria-hidden="true"
-        className={`
-          absolute inset-0
-          bg-[#E8DFCF]
-          transition-opacity duration-500
-          ${loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}
-        `}
-      >
-        <div className="absolute inset-0 image-skeleton-shimmer" />
-      </div>
+    <>
+      {!loaded && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 z-0 overflow-hidden bg-[#E8DFCF]"
+        >
+          <div className="absolute inset-0 image-skeleton-shimmer" />
+        </div>
+      )}
 
       <img
-        src={currentSrc}
+        src={imageSrc}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
         fetchPriority={priority ? 'high' : 'auto'}
         decoding="async"
-        onLoad={handleLoad}
-        onError={handleError}
+        onLoad={() => {
+          setLoaded(true);
+        }}
+        onError={() => {
+          console.error('IMAGE FAILED:', imageSrc);
+
+          if (imageSrc !== fallbackSrc) {
+            setImageSrc(fallbackSrc);
+          } else {
+            setLoaded(true);
+          }
+        }}
         className={`
           ${className}
+          relative z-[1]
           transition-opacity duration-500
           ${loaded ? 'opacity-100' : 'opacity-0'}
         `}
       />
-    </div>
+    </>
   );
 }
-
 function Loader({ onDone }) {
   useEffect(() => {
     const t = setTimeout(onDone, 2400);

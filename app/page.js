@@ -255,12 +255,6 @@ function Hero() {
         </motion.div>
 
         <motion.div style={{ opacity }} className="relative z-10 w-full h-full flex flex-col justify-end px-6 md:px-14 pb-16 md:pb-24 pt-32">
-          <div className="hidden lg:flex absolute left-10 top-1/2 -translate-y-1/2 flex-col items-center gap-6">
-            <span className="text-vertical text-[9px] font-semibold tracking-[0.5em] text-[#F8F4EC] mix-blend-difference">
-              XYLEM · INDIA · EVERYDAY OBJECTS
-            </span>
-            <div className="w-[1px] h-16 bg-[#F8F4EC]/50 mix-blend-difference"></div>
-          </div>
           
           <motion.div
             initial={{ opacity: 0, y: 30 }}

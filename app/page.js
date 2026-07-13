@@ -5,39 +5,39 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { User, Heart, ShoppingBag, X, Menu, Plus, Minus, ChevronRight, ArrowRight, ArrowUpRight, Star } from 'lucide-react';
 
 const IMG = {
-  hero: 'https://images.unsplash.com/photo-1586356864805-2956a8798a07?crop=entropy&cs=srgb&fm=jpg&q=85&w=2400',
-  editorial1: 'https://images.unsplash.com/photo-1578394349001-9302cf6d8d39?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
-  editorial2: 'https://images.unsplash.com/photo-1465224414649-ceb7f1db3999?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
-  editorial3: 'https://images.unsplash.com/photo-1612620535624-f6695d4864bb?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
-  materialBamboo: 'https://images.unsplash.com/photo-1563391507496-209fc783d42e?crop=entropy&cs=srgb&fm=jpg&q=85&w=1800',
-  materialWood: 'https://images.unsplash.com/photo-1601385304565-9a38a051a1a0?crop=entropy&cs=srgb&fm=jpg&q=85&w=1800',
-  materialFibre: 'https://images.unsplash.com/photo-1650855976847-563cf8e6ef55?crop=entropy&cs=srgb&fm=jpg&q=85&w=1800',
-  materialPaper: 'https://images.unsplash.com/photo-1528458909336-e7a0adfed0a5?crop=entropy&cs=srgb&fm=jpg&q=85&w=1800',
-  craft: 'https://images.unsplash.com/photo-1572656934803-d2162b2e98bf?crop=entropy&cs=srgb&fm=jpg&q=85&w=1600',
-  pottery1: 'https://images.unsplash.com/photo-1590605095243-072811dbe64c?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400',
-  pottery2: 'https://images.unsplash.com/photo-1605117012605-b68dedd4accc?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400',
-  pottery3: 'https://images.unsplash.com/photo-1597696929736-6d13bed8e6a8?crop=entropy&cs=srgb&fm=jpg&q=85&w=1400',
+  hero: '/images/img_hero.jpg',
+  editorial1: '/images/img_editorial1.jpg',
+  editorial2: '/images/img_editorial2.jpg',
+  editorial3: '/images/img_editorial3.jpg',
+  materialBamboo: '/images/img_materialBamboo.jpg',
+  materialWood: '/images/img_materialWood.jpg',
+  materialFibre: '/images/img_materialFibre.jpg',
+  materialPaper: '/images/img_materialPaper.jpg',
+  craft: '/images/img_craft.jpg',
+  pottery1: '/images/img_pottery1.jpg',
+  pottery2: '/images/img_pottery2.jpg',
+  pottery3: '/images/img_pottery3.jpg',
 };
 
 const P = [
-  'https://images.unsplash.com/photo-1660002753272-50d2fa0294e5?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1615203508881-9e7e357c0cc1?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1660002561318-6ef0a0ae1f04?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1538506035735-741d4901a820?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1587302108992-20648821725d?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1658696982877-32cb40d936a6?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1583245537385-e7ba78378183?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1608700730717-53738b6362de?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1609536834943-052422a93665?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1610247672792-2cdf792445f1?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1567696153821-ab501e3305f1?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1633327067729-231c075765a1?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1579291465619-36677919aa62?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1604259596863-57153177d40b?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1662714208483-3480ccd2de39?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1580802871526-699ac9a6bc97?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1602093417291-0c1581c6868f?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
-  'https://images.unsplash.com/photo-1607637508078-17fa89da51b6?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200',
+  '/images/p_0.jpg',
+  '/images/p_1.jpg',
+  '/images/p_2.jpg',
+  '/images/p_3.jpg',
+  '/images/p_4.jpg',
+  '/images/p_5.jpg',
+  '/images/p_6.jpg',
+  '/images/p_7.jpg',
+  '/images/p_8.jpg',
+  '/images/p_9.jpg',
+  '/images/p_10.jpg',
+  '/images/p_11.jpg',
+  '/images/p_12.jpg',
+  '/images/p_13.jpg',
+  '/images/p_14.jpg',
+  '/images/p_15.jpg',
+  '/images/p_16.jpg',
+  '/images/p_17.jpg',
 ];
 
 const PRODUCTS = [
@@ -126,7 +126,6 @@ function SmartImg({ src, alt, className = '', priority = false }) {
           }
         }}
         referrerPolicy="no-referrer"
-        crossOrigin="anonymous"
         className={`${className} transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
       />
     </>
@@ -201,8 +200,9 @@ function Nav({ onOpenMenu, scrolled }) {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.2, duration: 0.7 }}
-      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-500 ${scrolled ? 'bg-[#EFE7D8]/90 backdrop-blur-lg border-b border-[#D9C7A7]/50 shadow-sm' : 'bg-transparent'
-        }`}
+      className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-500 ${
+        scrolled ? 'bg-[#EFE7D8]/90 backdrop-blur-lg border-b border-[#D9C7A7]/50 shadow-sm' : 'bg-transparent'
+      }`}
     >
       <div className="max-w-[1600px] mx-auto flex items-center justify-between px-5 md:px-10 py-4 md:py-5">
         <a href="#top" className="flex items-center gap-3 group">
@@ -247,7 +247,7 @@ function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} id="top" className="relative min-h-screen w-full flex items-center justify-center p-3 md:p-6 pt-32 md:pt-48 lg:pt- bg-[#F8F4EC]">
+    <section ref={ref} id="top" className="relative min-h-screen w-full flex items-center justify-center p-3 md:p-6 pt-32 md:pt-48 lg:pt-52 bg-[#F8F4EC]">
       <div className="w-full h-full min-h-[80vh] relative rounded-xl md:rounded-3xl overflow-hidden shadow-2xl shadow-[#4A3B2A]/10 border border-[#D9C7A7]/40">
         <motion.div style={{ y }} className="absolute inset-0">
           <SmartImg src={IMG.hero} alt="XYLEM interior" priority className="w-full h-[120%] object-cover object-center" />
@@ -261,7 +261,7 @@ function Hero() {
             </span>
             <div className="w-[1px] h-16 bg-[#F8F4EC]/50 mix-blend-difference"></div>
           </div>
-
+          
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -359,8 +359,9 @@ function ShopByRitual({ onCategory }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.9, delay: i * 0.08, ease: 'easeOut' }}
-              className={`group relative overflow-hidden text-center rounded-xl md:rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-500 ${i < 3 ? 'md:col-span-4 aspect-[4/5]' : 'md:col-span-6 aspect-[16/11]'
-                }`}
+              className={`group relative overflow-hidden text-center rounded-xl md:rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-500 ${
+                i < 3 ? 'md:col-span-4 aspect-[4/5]' : 'md:col-span-6 aspect-[16/11]'
+              }`}
             >
               <div className="absolute inset-0 overflow-hidden bg-[#EFE7D8]">
                 <SmartImg src={c.img} alt={c.title} className="w-full h-full object-cover transition-transform duration-[1800ms] ease-out group-hover:scale-110" />
@@ -538,10 +539,10 @@ function IndiaJapan() {
         <div className="flex flex-col items-center text-center mb-16 md:mb-24">
           <div className="text-[10px] font-bold tracking-[0.4em] text-[#C4816B] mb-6 border border-[#C4816B]/30 px-4 py-2 rounded-full">— 04</div>
           <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl font-light max-w-[16ch] leading-[1.1]">
-            Rooted here. <br /><span className="italic text-[#C4816B]">Inspired</span> by restraint.
+            Rooted here. <br/><span className="italic text-[#C4816B]">Inspired</span> by restraint.
           </h2>
         </div>
-
+        
         <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center max-w-5xl mx-auto">
           <motion.div style={{ x: x1 }} className="aspect-[4/5] rounded-2xl overflow-hidden relative shadow-2xl border border-[#F8F4EC]/10">
             <SmartImg src={IMG.craft} alt="Indian craft" className="w-full h-full object-cover" />
@@ -571,7 +572,7 @@ function Manifesto() {
     'OBJECTS TO LIVE WITH',
     'XYLEM',
   ];
-
+  
   return (
     <section className="bg-[#B4341F] text-[#F8F4EC] py-16 md:py-24 overflow-hidden border-y border-[#F8F4EC]/20 relative">
       <div className="absolute inset-0 paper-grain mix-blend-overlay opacity-50 pointer-events-none"></div>
@@ -641,7 +642,7 @@ function Journey() {
 function Shop({ onProduct, filterCategory, setFilterCategory }) {
   const [material, setMaterial] = useState('All');
   const [sort, setSort] = useState('featured');
-
+  
   const filtered = PRODUCTS.filter(p => (filterCategory === 'All' || p.category === filterCategory) && (material === 'All' || p.material === material));
   const sorted = [...filtered].sort((a, b) => {
     if (sort === 'lowhigh') return a.price - b.price;
@@ -693,7 +694,7 @@ function Shop({ onProduct, filterCategory, setFilterCategory }) {
               </div>
             </div>
           </div>
-
+          
           <div className="flex flex-col md:items-end justify-between border-t md:border-t-0 md:border-l border-[#D9C7A7] pt-6 md:pt-0 md:pl-12 min-w-[200px]">
             <div>
               <div className="text-[10px] font-bold tracking-[0.3em] text-[#4A3B2A] mb-4">SORT BY</div>
@@ -754,7 +755,7 @@ function Packaging() {
             <span className="text-[10px] font-bold tracking-[0.4em] text-[#B4341F]">06 / PACKAGING</span>
           </div>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl font-light leading-[1.05] max-w-[14ch]">
-            The object arrives. <br /><span className="italic text-[#4A3B2A]">Not the excess.</span>
+            The object arrives. <br/><span className="italic text-[#4A3B2A]">Not the excess.</span>
           </h2>
           <p className="mt-8 md:mt-12 text-[15px] leading-[2] text-[#4A3B2A] max-w-lg font-medium">
             Kraft paper, paper tape and a small red mark. Packaging that carries the object without demanding attention of its own. Made in India, kept intentionally quiet.
@@ -848,7 +849,7 @@ function Footer() {
             </div>
           </div>
         </div>
-
+        
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 border-t border-[#D9C7A7] pt-16">
           <div>
             <div className="text-[10px] font-bold tracking-[0.4em] mb-6 text-[#4A3B2A]">SHOP</div>
@@ -901,7 +902,7 @@ function ProductModal({ product, onClose }) {
   const [email, setEmail] = useState('');
   const [msg, setMsg] = useState('');
   const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
@@ -946,7 +947,7 @@ function ProductModal({ product, onClose }) {
           <div className="text-[10px] font-bold tracking-[0.4em] text-[#B4341F] mb-3">{product.category.toUpperCase()}</div>
           <h2 className="font-serif text-4xl md:text-5xl font-light leading-[1.05] text-[#1F1B18] mb-4">{product.name}</h2>
           <div className="text-xl font-medium text-[#4A3B2A] mb-6">₹{product.price}</div>
-
+          
           <p className="text-[15px] leading-[1.9] text-[#4A3B2A] mb-8 font-medium bg-[#EFE7D8]/50 p-6 rounded-2xl border border-[#D9C7A7]/50">
             {product.desc}
           </p>

@@ -239,31 +239,42 @@ function Nav({ onOpenMenu, scrolled }) {
     </motion.header>
   );
 }
-
 function Hero() {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
-    <section ref={ref} id="top" className="relative min-h-screen w-full flex items-center justify-center p-3 md:p-6 pt-32 md:pt-48 lg:pt-52 bg-[#F8F4EC]">
+ <section
+  ref={ref}
+  id="top"
+  className="relative min-h-screen w-full flex items-center justify-center p-3 md:p-6 pt-20 md:pt-28 lg:pt-32 bg-[#F8F4EC]"
+>
       <div className="w-full h-full min-h-[80vh] relative rounded-xl md:rounded-3xl overflow-hidden shadow-2xl shadow-[#4A3B2A]/10 border border-[#D9C7A7]/40">
-        <motion.div style={{ y }} className="absolute inset-0">
-          <SmartImg src={IMG.hero} alt="XYLEM interior" priority className="w-full h-[120%] object-cover object-center" />
+        
+        <div className="absolute inset-0">
+          <SmartImg
+            src={IMG.hero}
+            alt="XYLEM interior"
+            priority
+            className="w-full h-full object-cover object-center"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-[#1F1B18]/30 via-transparent to-[#F8F4EC]/90" />
-        </motion.div>
+        </div>
 
-        <motion.div style={{ opacity }} className="relative z-10 w-full h-full flex flex-col justify-end px-6 md:px-14 pb-16 md:pb-24 pt-32">
-          
+        <div className="relative z-10 w-full h-full flex flex-col justify-end px-6 md:px-14 pb-16 md:pb-24 pt-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.8, duration: 1.2, ease: 'easeOut' }}
+            transition={{
+              delay: 2.8,
+              duration: 1.2,
+              ease: 'easeOut',
+            }}
             className="flex flex-col gap-4"
           >
             <h1 className="font-serif text-[11vw] md:text-[8.5vw] leading-[0.95] text-[#1F1B18] max-w-[14ch] font-light break-words drop-shadow-sm">
-              Objects <span className="italic text-[#4A3B2A]">for</span><br />quieter living.
+              Objects <span className="italic text-[#4A3B2A]">for</span>
+              <br />
+              quieter living.
             </h1>
           </motion.div>
 
@@ -274,21 +285,38 @@ function Hero() {
             className="mt-8 md:mt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8 border-t border-[#1F1B18]/10 pt-6"
           >
             <p className="max-w-md text-sm md:text-[15px] leading-relaxed text-[#4A3B2A] font-medium">
-              Natural materials, considered forms and everyday objects chosen for a more thoughtful way of living.
+              Natural materials, considered forms and everyday objects
+              chosen for a more thoughtful way of living.
             </p>
-            <a href="#shop" className="group inline-flex items-center gap-4 self-start md:self-end bg-[#1F1B18] text-[#F8F4EC] px-6 py-3.5 rounded-full hover:bg-[#B4341F] transition-all duration-300 shadow-md hover:shadow-xl">
+
+            <a
+              href="#shop"
+              className="group inline-flex items-center gap-4 self-start md:self-end bg-[#1F1B18] text-[#F8F4EC] px-6 py-3.5 rounded-full hover:bg-[#B4341F] transition-all duration-300 shadow-md hover:shadow-xl"
+            >
               <span className="text-[10px] font-bold tracking-[0.3em]">
                 EXPLORE COLLECTION
               </span>
-              <ArrowRight size={16} strokeWidth={1.5} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight
+                size={16}
+                strokeWidth={1.5}
+                className="group-hover:translate-x-1 transition-transform"
+              />
             </a>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 text-[9px] font-bold tracking-[0.4em] text-[#4A3B2A] hidden md:flex flex-col items-center gap-3 mix-blend-color-burn">
         <span>SCROLL</span>
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }} className="w-[1.5px] h-10 bg-[#4A3B2A] rounded-full" />
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{
+            repeat: Infinity,
+            duration: 2,
+            ease: 'easeInOut',
+          }}
+          className="w-[1.5px] h-10 bg-[#4A3B2A] rounded-full"
+        />
       </div>
     </section>
   );

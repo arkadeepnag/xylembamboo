@@ -97,38 +97,77 @@ const NOTES = [
   { text: 'Everything I bought feels considered. Nothing feels shouted.', name: 'Meera', city: 'Chennai' },
 ];
 
-function SmartImg({ src, alt, className = '', priority = false }) {
+function SmartImg({
+  src,
+  alt = '',
+  className = '',
+  priority = false,
+}) {
+  const [currentSrc, setCurrentSrc] = useState(src);
   const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(false);
+  const [failed, setFailed] = useState(false);
 
-  // Reset loading state if the source URL changes
+  const fallbackSrc =
+    'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=80';
+
   useEffect(() => {
+    setCurrentSrc(src);
     setLoaded(false);
-    setError(false);
+    setFailed(false);
   }, [src]);
 
-  // A highly reliable, minimalist fallback image in case the original ID is deleted/blocked
-  const fallbackSrc = 'https://images.unsplash.com/photo-1610701596007-11502861dcfa?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200';
+  const handleLoad = async (e) => {
+    try {
+      if (e.currentTarget.decode) {
+        await e.currentTarget.decode();
+      }
+    } catch {
+      // Image is still usable even if decode fails.
+    }
+
+    setLoaded(true);
+  };
+
+  const handleError = () => {
+    if (!failed) {
+      setFailed(true);
+      setLoaded(false);
+      setCurrentSrc(fallbackSrc);
+      return;
+    }
+
+    setLoaded(true);
+  };
 
   return (
-    <>
-      {!loaded && <div className="absolute inset-0 skeleton bg-[#D9C7A7]/30 animate-pulse" aria-hidden="true" />}
+    <div className="absolute inset-0 overflow-hidden">
+      <div
+        aria-hidden="true"
+        className={`
+          absolute inset-0
+          bg-[#E8DFCF]
+          transition-opacity duration-500
+          ${loaded ? 'opacity-0 pointer-events-none' : 'opacity-100'}
+        `}
+      >
+        <div className="absolute inset-0 image-skeleton-shimmer" />
+      </div>
+
       <img
-        src={error ? fallbackSrc : src}
+        src={currentSrc}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
-        onLoad={() => setLoaded(true)}
-        onError={() => {
-          if (!error) {
-            setError(true); // Attempt fallback
-          } else {
-            setLoaded(true); // If even the fallback fails, clear the skeleton to prevent infinite pulse
-          }
-        }}
-        referrerPolicy="no-referrer"
-        className={`${className} transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        fetchPriority={priority ? 'high' : 'auto'}
+        decoding="async"
+        onLoad={handleLoad}
+        onError={handleError}
+        className={`
+          ${className}
+          transition-opacity duration-500
+          ${loaded ? 'opacity-100' : 'opacity-0'}
+        `}
       />
-    </>
+    </div>
   );
 }
 

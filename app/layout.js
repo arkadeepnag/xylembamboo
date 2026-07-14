@@ -24,6 +24,12 @@ export default function RootLayout({ children }) {
     >
       <head>
       <title>Xylem Ecommerce</title>
+      <link
+  rel="preload"
+  as="image"
+  href="/images/img_hero.jpg"
+  fetchPriority="high"
+/>
       </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

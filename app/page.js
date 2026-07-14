@@ -103,13 +103,8 @@ function SmartImg({
   priority = false,
 }) {
   const [loaded, setLoaded] = useState(false);
-  const [imageSrc, setImageSrc] = useState(src);
-
-  const fallbackSrc =
-    'https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=1200&q=80';
 
   useEffect(() => {
-    setImageSrc(src);
     setLoaded(false);
   }, [src]);
 
@@ -118,35 +113,28 @@ function SmartImg({
       {!loaded && (
         <div
           aria-hidden="true"
-          className="absolute inset-0 z-0 overflow-hidden bg-[#E8DFCF]"
+          className="absolute inset-0 z-0 overflow-hidden bg-[#E7DDCC]"
         >
-          <div className="absolute inset-0 image-skeleton-shimmer" />
+          <div className="absolute inset-0 image-skeleton" />
         </div>
       )}
 
       <img
-        src={imageSrc}
+        src={src}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
-        fetchPriority={priority ? 'high' : 'auto'}
+        fetchPriority={priority ? 'high' : 'low'}
         decoding="async"
-        onLoad={() => {
+        onLoad={() => setLoaded(true)}
+        onError={(e) => {
+          console.error('IMAGE LOAD FAILED:', src);
+          e.currentTarget.style.opacity = '1';
           setLoaded(true);
-        }}
-        onError={() => {
-          console.error('IMAGE FAILED:', imageSrc);
-
-          if (imageSrc !== fallbackSrc) {
-            setImageSrc(fallbackSrc);
-          } else {
-            setLoaded(true);
-          }
         }}
         className={`
           ${className}
-          relative z-[1]
-          transition-opacity duration-500
           ${loaded ? 'opacity-100' : 'opacity-0'}
+          transition-opacity duration-300
         `}
       />
     </>
@@ -271,12 +259,14 @@ function Hero() {
       <div className="w-full h-full min-h-[80vh] relative rounded-xl md:rounded-3xl overflow-hidden shadow-2xl shadow-[#4A3B2A]/10 border border-[#D9C7A7]/40">
         
         <div className="absolute inset-0">
-          <SmartImg
-            src={IMG.hero}
-            alt="XYLEM interior"
-            priority
-            className="w-full h-full object-cover object-center"
-          />
+     <img
+  src={IMG.hero}
+  alt="XYLEM interior"
+  loading="eager"
+  fetchPriority="high"
+  decoding="sync"
+  className="absolute inset-0 w-full h-full object-cover object-center"
+/>
           <div className="absolute inset-0 bg-gradient-to-b from-[#1F1B18]/30 via-transparent to-[#F8F4EC]/90" />
         </div>
 
@@ -427,49 +417,85 @@ function ShopByRitual({ onCategory }) {
     </section>
   );
 }
-
 function ProductCard({ p, onClick, i }) {
   const [hover, setHover] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, delay: (i % 4) * 0.06, ease: 'easeOut' }}
+      transition={{
+        duration: 0.7,
+        delay: (i % 4) * 0.06,
+        ease: 'easeOut',
+      }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className="group cursor-pointer flex flex-col h-full bg-[#F8F4EC] rounded-2xl border border-[#D9C7A7]/40 hover:border-[#D9C7A7] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
       onClick={() => onClick(p)}
     >
+      {/* PRODUCT IMAGE */}
       <div className="relative aspect-[4/5] overflow-hidden bg-[#EFE7D8] m-2 rounded-xl">
-        <div className={`absolute inset-0 transition-opacity duration-700 ${hover ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}>
-          <SmartImg src={p.img} alt={p.name} className="w-full h-full object-cover transition-transform duration-700" />
-        </div>
-        <div className={`absolute inset-0 transition-opacity duration-700 ${hover ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`}>
-          <SmartImg src={p.alt} alt="" className="w-full h-full object-cover transition-transform duration-700" />
-        </div>
+        <SmartImg
+          src={hover && p.alt ? p.alt : p.img}
+          alt={p.name}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+
+        {/* SOON BADGE */}
         <div className="absolute top-3 left-3 z-10">
           <span className="inline-block bg-[#F8F4EC]/95 backdrop-blur-md shadow-sm text-[8px] font-bold tracking-[0.3em] px-3 py-1.5 rounded-full text-[#1F1B18]">
             SOON
           </span>
         </div>
+
+        {/* WISHLIST */}
         <button
-          aria-label="Wishlist"
-          onClick={(e) => e.stopPropagation()}
-          className="absolute top-3 right-3 w-9 h-9 bg-[#F8F4EC]/95 backdrop-blur-md shadow-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-[#B4341F] z-10"
+          type="button"
+          aria-label={`Add ${p.name} to wishlist`}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          className="absolute top-3 right-3 z-20 w-9 h-9 bg-[#F8F4EC]/95 backdrop-blur-md shadow-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:text-[#B4341F]"
         >
           <Heart size={14} strokeWidth={1.5} />
         </button>
-        <div className={`absolute inset-0 bg-[#1F1B18]/10 flex items-center justify-center transition-opacity duration-500 ${hover ? 'opacity-100' : 'opacity-0'}`}>
-          <span className="bg-[#1F1B18] shadow-lg text-[#F8F4EC] text-[9px] font-bold tracking-[0.4em] px-6 py-3 rounded-full translate-y-4 group-hover:translate-y-0 transition-transform duration-500">VIEW OBJECT</span>
+
+        {/* HOVER OVERLAY */}
+        <div
+          className={`absolute inset-0 z-10 bg-[#1F1B18]/10 flex items-center justify-center pointer-events-none transition-opacity duration-300 ${
+            hover ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <span
+            className={`bg-[#1F1B18] shadow-lg text-[#F8F4EC] text-[9px] font-bold tracking-[0.4em] px-6 py-3 rounded-full transition-all duration-500 ${
+              hover
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-4 opacity-0'
+            }`}
+          >
+            VIEW OBJECT
+          </span>
         </div>
       </div>
+
+      {/* PRODUCT INFORMATION */}
       <div className="p-4 md:p-5 flex-1 flex flex-col">
         <div className="flex items-start justify-between gap-4 mb-2">
-          <h3 className="font-serif text-[15px] md:text-[17px] leading-tight text-[#1F1B18] font-medium">{p.name}</h3>
-          <span className="text-[10px] font-semibold tracking-[0.1em] text-[#4A3B2A] mt-0.5 whitespace-nowrap">₹{p.price}</span>
+          <h3 className="font-serif text-[15px] md:text-[17px] leading-tight text-[#1F1B18] font-medium">
+            {p.name}
+          </h3>
+
+          <span className="text-[10px] font-semibold tracking-[0.1em] text-[#4A3B2A] mt-0.5 whitespace-nowrap">
+            ₹{p.price}
+          </span>
         </div>
-        <p className="text-[11px] text-[#4A3B2A]/70 mt-auto line-clamp-1">{p.material} · {p.category}</p>
+
+        <p className="text-[11px] text-[#4A3B2A]/70 mt-auto line-clamp-1">
+          {p.material} · {p.category}
+        </p>
       </div>
     </motion.div>
   );

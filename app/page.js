@@ -102,11 +102,8 @@ function SmartImg({
   className = '',
   priority = false,
 }) {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setLoaded(false);
-  }, [src]);
+  const [loadedSrc, setLoadedSrc] = useState(null);
+  const loaded = loadedSrc === src;
 
   return (
     <>
@@ -123,23 +120,27 @@ function SmartImg({
         src={src}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
-        fetchPriority={priority ? 'high' : 'low'}
+        fetchPriority={priority ? 'high' : 'auto'}
         decoding="async"
-        onLoad={() => setLoaded(true)}
+        onLoad={() => {
+          setLoadedSrc(src);
+        }}
         onError={(e) => {
           console.error('IMAGE LOAD FAILED:', src);
-          e.currentTarget.style.opacity = '1';
-          setLoaded(true);
+          setLoadedSrc(src);
         }}
         className={`
           ${className}
-          ${loaded ? 'opacity-100' : 'opacity-0'}
+          relative z-[1]
           transition-opacity duration-300
+          ${loaded ? 'opacity-100' : 'opacity-0'}
         `}
       />
     </>
   );
 }
+
+
 function Loader({ onDone }) {
   useEffect(() => {
     const t = setTimeout(onDone, 2400);
@@ -437,12 +438,12 @@ function ProductCard({ p, onClick, i }) {
     >
       {/* PRODUCT IMAGE */}
       <div className="relative aspect-[4/5] overflow-hidden bg-[#EFE7D8] m-2 rounded-xl">
-        <SmartImg
-          src={hover && p.alt ? p.alt : p.img}
-          alt={p.name}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-
+<SmartImg
+  key={hover && p.alt ? p.alt : p.img}
+  src={hover && p.alt ? p.alt : p.img}
+  alt={p.name}
+  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+/>
         {/* SOON BADGE */}
         <div className="absolute top-3 left-3 z-10">
           <span className="inline-block bg-[#F8F4EC]/95 backdrop-blur-md shadow-sm text-[8px] font-bold tracking-[0.3em] px-3 py-1.5 rounded-full text-[#1F1B18]">
